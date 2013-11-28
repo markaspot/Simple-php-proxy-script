@@ -15,7 +15,7 @@ define('CONFIG_FILE', 'simple-php-proxy_config.php');
 
 $dest_host = "bash.org";
 
-$proxy_base_url = '/';
+$proxy_base_url = '/profiles/markaspot/libraries/proxy';
 
 $proxied_headers = array('Set-Cookie', 'Content-Type', 'Cookie', 'Location');
 
@@ -23,7 +23,7 @@ $proxied_headers = array('Set-Cookie', 'Content-Type', 'Cookie', 'Location');
 foreach( array('./', '../', '../../') as $path_rel )
 {
     if( file_exists(dirname(__file__)."/$path_rel" . CONFIG_FILE) )
-    { 
+    {
         include(dirname(__file__)."/$path_rel" . CONFIG_FILE);
         break;
     }
@@ -35,7 +35,7 @@ $proxy_base_url_canonical = rtrim($proxy_base_url, '/ ') . '/';
 //check if valid
 if( strpos($_SERVER['REQUEST_URI'], $proxy_base_url) !== 0 )
 {
-    die("The config paramter \$prox_base_url \"$proxy_base_url\" that you specified 
+    die("The config paramter \$prox_base_url \"$proxy_base_url\" that you specified
         does not match the beginning of the request URI: ".
         $_SERVER['REQUEST_URI']);
 }
@@ -62,22 +62,22 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
 curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 
 /* Collect and pass client request headers */
-if(isset($_SERVER['HTTP_COOKIE']))     
-{ 
-    $hdrs[]="Cookie: " . $_SERVER['HTTP_COOKIE'];        
+if(isset($_SERVER['HTTP_COOKIE']))
+{
+    $hdrs[]="Cookie: " . $_SERVER['HTTP_COOKIE'];
 }
 
-if(isset($_SERVER['HTTP_USER_AGENT'])) 
-{ 
-    $hdrs[]="User-Agent: " . $_SERVER['HTTP_USER_AGENT']; 
+if(isset($_SERVER['HTTP_USER_AGENT']))
+{
+    $hdrs[]="User-Agent: " . $_SERVER['HTTP_USER_AGENT'];
 }
 
 curl_setopt($ch, CURLOPT_HTTPHEADER, $hdrs);
 
 /* pass POST params */
 if( sizeof($_POST) > 0 )
-{ 
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $_POST); 
+{
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $_POST);
 }
 
 $res = curl_exec($ch);
@@ -96,7 +96,7 @@ foreach($headers as $header)
         list($h, $v) = explode(':', $header);
         $hs[$h][] = $v;
     }
-    else 
+    else
     {
         $header1  = $header;
     }
@@ -112,7 +112,7 @@ foreach($proxied_headers as $hname)
     {
         foreach( $hs[$hname] as $v )
         {
-            if( $hname === 'Set-Cookie' ) 
+            if( $hname === 'Set-Cookie' )
             {
                 header($hname.": " . $v, false);
             }

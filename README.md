@@ -27,8 +27,6 @@ and the part "/my_other_uri/that/resides/on/bob" gets proxied to your specified 
 
 The MIT License applies to this software
 
-(c) 2011 by Alexxz (his github.com username) 
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
